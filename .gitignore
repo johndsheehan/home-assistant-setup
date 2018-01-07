@@ -1,0 +1,13 @@
+*cfg
+*db
+*gif
+*log
+*png
+*swp
+
+config/deps
+config/tts
+
+config/.HA_VERSION
+config/.uuid
+config/secrets.yaml

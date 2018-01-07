@@ -1,0 +1,13 @@
+- platform: mqtt
+  name: 'Lamp Table'
+  state_topic: 'stat/sonoffTableLamp/POWER'
+  command_topic: 'cmnd/sonoffTableLamp/power'
+  payload_on: 'ON'
+  payload_off: 'OFF'
+
+- platform: mqtt
+  name: 'Lamp Floor'
+  state_topic: 'stat/sonoffFloorLamp/POWER'
+  command_topic: 'cmnd/sonoffFloorLamp/power'
+  payload_on: 'ON'
+  payload_off: 'OFF'

@@ -1,0 +1,94 @@
+default_view:
+  view: yes
+  icon: mdi:home
+  entities:
+  - group.time_info
+  - group.room_living
+  - group.climate_indoor
+
+weather:
+  name: Weather
+  view: yes
+  icon: mdi:weather-partlycloudy
+  entities:
+  - group.climate_indoor
+  - group.climate_outdoor
+  - camera.met_eireann_radar
+
+rpi:
+  name: Computer
+  view: yes
+  icon: mdi:desktop-classic
+  entities:
+  - group.flatpi
+  - group.network
+
+random:
+  name: Miscellaneous
+  view: yes
+  icon: mdi:dice-multiple
+  entities:
+  - group.earthquakes
+  - group.iss
+
+time_info:
+  name: 'Time'
+  entities:
+  - sensor.date
+  - sensor.time
+  - sensor.time_utc
+
+climate_indoor:
+  name: 'Climate, indoor'
+  entities:
+  - sensor.temperature_living_room
+  - sensor.temperature_bedroom
+  - sensor.humidity_living_room
+  - sensor.humidity_bedroom
+
+climate_outdoor:
+  name: 'Climate, outdoor'
+  entities:
+  - sensor.dark_sky_temperature
+  - sensor.dark_sky_apparent_temperature
+  - sensor.dark_sky_summary
+
+room_living:
+  name: 'Living room'
+  entities:
+  - light.lamp_floor
+  - light.lamp_table
+
+iss:
+  - camera.iss_location
+  - binary_sensor.iss
+
+earthquakes:
+  - sensor.usgs_all_past_day
+  - sensor.bgs_worldwide_eqmh
+
+flatpi:
+  name: Home Assistant Server
+  icon: mdi:desktop-classic
+  entities:
+  - sensor.ipv4
+  - sensor.sent_enxb827eb4219a6
+  - sensor.received_enxb827eb4219a6
+  - sensor.disk_used_home
+  - sensor.ram_used
+  - sensor.swap_used
+  - sensor.cpu_used
+  - sensor.average_load_1m
+  - sensor.average_load_5m
+  - sensor.average_load_15m
+  - sensor.last_boot
+  - sensor.since_last_boot
+
+network:
+  name: Bandwidth
+  icon: mdi:speedometer
+  entities:
+  - sensor.fastcom_download
+  - sensor.speedtest_download
+  - sensor.speedtest_upload
+  - sensor.speedtest_ping

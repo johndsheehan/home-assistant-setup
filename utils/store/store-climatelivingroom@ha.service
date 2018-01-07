@@ -1,0 +1,12 @@
+[Unit]
+Description=store mqtt data in db
+After=network.target
+
+[Service]
+Type=simple
+User=%i
+WorkingDirectory=/home/ha/home-assistant-setup/utils/store
+ExecStart=/usr/bin/python3 /home/ha/home-assistant-setup/utils/store/store.py
+
+[Install]
+WantedBy=multi-user.target

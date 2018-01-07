@@ -1,0 +1,31 @@
+sensor.time_date_time:
+  friendly_name: 'Time'
+
+light.lamp_floor:
+  friendly_name: 'Floor lamp'
+light.lamp_table:
+  friendly_name: 'Table lamp'
+
+sensor.temperature_living_room:
+  friendly_name: 'Temperature, living room'
+sensor.temperature_bedroom:
+  friendly_name: 'Temperature, bedroom'
+sensor.humidity_living_room:
+  friendly_name: 'Humidity, living room'
+sensor.humidity_bedroom:
+  friendly_name: 'Humidity, bedroom'
+
+sensor.dark_sky_temperature:
+  friendly_name: 'Temperature'
+sensor.dark_sky_apparent_temperature:
+  friendly_name: 'Feels like'
+sensor.dark_sky_summary:
+  friendly_name: 'Summary'
+
+sensor.sent_enxb827eb4219a6:
+  friendly_name: 'Sent (wired)'
+sensor.received_enxb827eb4219a6:
+  friendly_name: 'Received (wired)'
+
+sensor.fastcom_download:
+  icon: mdi:speedometer

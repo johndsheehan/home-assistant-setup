@@ -1,0 +1,8 @@
+- platform: generic
+  name: "ISS location"
+  still_image_url: https://maps.googleapis.com/maps/api/staticmap?center={{ states.binary_sensor.iss.attributes.lat }},{{ states.binary_sensor.iss.attributes.long }}&zoom=3&size=500x500&maptype=roadmap&path=color:0xff0000ff|weight:5|geodesic:true|{{ states.binary_sensor.iss.attributes.path }}
+  limit_refetch_to_url_change: true
+
+- platform: generic
+  name: "Met Eireann radar"
+  still_image_url: "http://127.0.0.1:5050/radar"

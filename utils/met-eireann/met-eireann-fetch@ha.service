@@ -1,0 +1,12 @@
+[Unit]
+Description=fetch met-eireann radar image
+After=network.target
+
+[Service]
+Type=oneshot
+User=%i
+WorkingDirectory=/home/ha/home-assistant-setup/utils/met-eireann
+ExecStart=/usr/bin/python3 /home/ha/home-assistant-setup/utils/met-eireann/met.py
+
+[Install]
+WantedBy=multi-user.target

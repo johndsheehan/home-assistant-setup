@@ -1,0 +1,84 @@
+- platform: time_date
+  display_options:
+    - 'date'
+    - 'time'
+    - 'time_utc'
+
+- platform: mqtt
+  name: 'Temperature Living Room'
+  state_topic: 'climate/livingroom'
+  unit_of_measurement: '°C'
+  value_template: '{{ value_json.tmp }}'
+
+- platform: mqtt
+  name: 'Temperature Bedroom'
+  state_topic: 'office/sensor1'
+  unit_of_measurement: '°C'
+  value_template: '{{ value_json.temperature }}'
+
+- platform: mqtt
+  name: 'Humidity Living Room'
+  state_topic: 'climate/livingroom'
+  unit_of_measurement: '%'
+  value_template: '{{ value_json.hmd }}'
+
+- platform: mqtt
+  name: 'Humidity Bedroom'
+  state_topic: 'office/sensor1'
+  unit_of_measurement: '%'
+  value_template: '{{ value_json.humidity }}'
+
+- platform: geo_rss_events
+  name: 'USGS All'
+  url: https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.atom
+  radius: 200000.0
+  categories:
+  - 'Past Day'
+
+- platform: geo_rss_events
+  name: 'BGS Worldwide'
+  url: http://www.bgs.ac.uk/feeds/worldSeismology.xml
+  radius: 200000.0
+  categories:
+  - 'EQMH'
+
+- platform: darksky
+  api_key: !secret darksky_apikey
+  monitored_conditions:
+  - apparent_temperature
+  - summary
+  - temperature
+
+- platform: fastdotcom
+  minute:
+  - 16
+  - 46
+
+- platform: speedtest
+  monitored_conditions:
+  - ping
+  - download
+  - upload
+  minute:
+  - 1
+  - 31
+
+- platform: systemmonitor
+  name: 'RPi'
+  resources:
+  - type: disk_use_percent
+    arg: /home
+  - type: memory_use_percent
+  - type: swap_use_percent
+  - type: processor_use
+  - type: load_1m
+  - type: load_5m
+  - type: load_15m
+  - type: ipv4_address
+    arg: enxb827eb4219a6
+  - type: network_in
+    arg: enxb827eb4219a6
+  - type: network_out
+    arg: enxb827eb4219a6
+  - type: last_boot
+  - type: since_last_boot

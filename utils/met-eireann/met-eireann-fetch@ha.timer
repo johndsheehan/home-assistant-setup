@@ -1,0 +1,12 @@
+[Unit]
+Description=fetch met-eireann radar image
+
+[Timer]
+OnCalendar=*-*-* *:09:*
+OnCalendar=*-*-* *:24:*
+OnCalendar=*-*-* *:39:*
+OnCalendar=*-*-* *:54:*
+OnBootSec=10s
+
+[Install]
+WantedBy=timers.target

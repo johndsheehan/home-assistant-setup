@@ -1,0 +1,12 @@
+[Unit]
+Description=serve met-eireann radar gif locally
+After=network.target
+
+[Service]
+Type=simple
+User=%i
+WorkingDirectory=/home/ha/home-assistant-setup/utils/met-eireann
+ExecStart=/usr/bin/python3 /home/ha/home-assistant-setup/utils/met-eireann/srv.py
+
+[Install]
+WantedBy=multi-user.target
