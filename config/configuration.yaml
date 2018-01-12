@@ -70,6 +70,7 @@ sun:
 
 binary_sensor: !include binary_sensor.yaml
 camera: !include cameras.yaml
+device_tracker: !include device_tracker.yaml
 light: !include lights.yaml
 sensor: !include sensors.yaml
 group: !include groups.yaml

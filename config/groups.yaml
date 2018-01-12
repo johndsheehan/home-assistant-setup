@@ -5,6 +5,7 @@ default_view:
   - group.time_info
   - group.room_living
   - group.climate_indoor
+  - group.me
 
 weather:
   name: Weather
@@ -45,6 +46,10 @@ climate_indoor:
   - sensor.temperature_bedroom
   - sensor.humidity_living_room
   - sensor.humidity_bedroom
+
+me:
+  entities:
+  - device_tracker.user_dev
 
 climate_outdoor:
   name: 'Climate, outdoor'
