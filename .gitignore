@@ -12,3 +12,5 @@ config/.HA_VERSION
 config/.uuid
 config/known_devices.yaml
 config/secrets.yaml
+
+utils/climate/templates/*

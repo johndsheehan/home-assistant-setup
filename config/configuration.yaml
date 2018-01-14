@@ -68,6 +68,11 @@ map:
 # Track the sun
 sun:
 
+panel_iframe:
+  climate:
+    title: 'Climate'
+    url: 'http://localhost:5001/chart/last-month'
+
 binary_sensor: !include binary_sensor.yaml
 camera: !include cameras.yaml
 device_tracker: !include device_tracker.yaml
