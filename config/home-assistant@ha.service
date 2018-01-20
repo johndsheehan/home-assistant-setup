@@ -1,0 +1,11 @@
+[Unit]
+Description=home assistant (home-assistant.io)
+After=network.target
+
+[Service]
+Type=simple
+User=%i
+ExecStart=/usr/bin/python3 /home/ha/.local/bin/hass -c /home/ha/home-assistant-setup/config
+
+[Install]
+WantedBy=multi-user.target
