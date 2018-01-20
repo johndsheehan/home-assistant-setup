@@ -5,6 +5,7 @@ default_view:
   - group.time_info
   - group.room_living
   - group.climate_indoor
+  - group.media
   - group.me
 
 weather:
@@ -63,6 +64,11 @@ room_living:
   entities:
   - light.lamp_floor
   - light.lamp_table
+
+media:
+  name: 'Chromecast'
+  entities:
+  - media_player.monitor
 
 iss:
   - camera.iss_location
