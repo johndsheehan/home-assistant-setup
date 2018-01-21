@@ -7,60 +7,60 @@ systemctl stop  ha-met-eireann-fetch@ha.service
 systemctl stop  ha-met-eireann-fetch@ha.timer
 systemctl stop  ha-met-eireann-serve@ha.service
 systemctl stop  ha-location-relay@ha.service
-systemctl stop  ha-serve-climate@ha.service
-systemctl stop  ha-store-climatebedroom@ha.service
-systemctl stop  ha-store-climatelivingroom@ha.service
+systemctl stop  ha-climate-serve@ha.service
+systemctl stop  ha-climate-store-bedroom@ha.service
+systemctl stop  ha-climate-store-livingroom@ha.service
 
 systemctl disable  ha-home-assistant@ha.service
 systemctl disable  ha-met-eireann-fetch@ha.service
 systemctl disable  ha-met-eireann-fetch@ha.timer
 systemctl disable  ha-met-eireann-serve@ha.service
 systemctl disable  ha-location-relay@ha.service
-systemctl disable  ha-serve-climate@ha.service
-systemctl disable  ha-store-climatebedroom@ha.service
-systemctl disable  ha-store-climatelivingroom@ha.service
+systemctl disable  ha-climate-serve@ha.service
+systemctl disable  ha-climate-store-bedroom@ha.service
+systemctl disable  ha-climate-store-livingroom@ha.service
 
 rm /etc/systemd/system/ha-home-assistant@ha.service
 rm /etc/systemd/system/ha-met-eireann-fetch@ha.service
 rm /etc/systemd/system/ha-met-eireann-fetch@ha.timer
 rm /etc/systemd/system/ha-met-eireann-serve@ha.service
 rm /etc/systemd/system/ha-location-relay@ha.service
-rm /etc/systemd/system/ha-serve-climate@ha.service
-rm /etc/systemd/system/ha-store-climatebedroom@ha.service
-rm /etc/systemd/system/ha-store-climatelivingroom@ha.service
+rm /etc/systemd/system/ha-climate-serve@ha.service
+rm /etc/systemd/system/ha-climate-store-bedroom@ha.service
+rm /etc/systemd/system/ha-climate-store-livingroom@ha.service
 
 cp ./utils/met-eireann/ha-met-eireann-fetch@ha.service  /etc/systemd/system
 cp ./utils/met-eireann/ha-met-eireann-fetch@ha.timer  /etc/systemd/system
 cp ./utils/met-eireann/ha-met-eireann-serve@ha.service  /etc/systemd/system
 cp ./utils/location/ha-location-relay@ha.service  /etc/systemd/system
-cp ./utils/climate/ha-serve-climate@ha.service  /etc/systemd/system
-cp ./utils/climate/ha-store-climatebedroom@ha.service  /etc/systemd/system
-cp ./utils/climate/ha-store-climatelivingroom@ha.service  /etc/systemd/system
+cp ./utils/climate/ha-climate-serve@ha.service  /etc/systemd/system
+cp ./utils/climate/ha-climate-store-bedroom@ha.service  /etc/systemd/system
+cp ./utils/climate/ha-climate-store-livingroom@ha.service  /etc/systemd/system
 cp ./config/ha-home-assistant@ha.service  /etc/systemd/system
 
 systemctl enable  ha-met-eireann-fetch@ha.service
 systemctl enable  ha-met-eireann-fetch@ha.timer
 systemctl enable  ha-met-eireann-serve@ha.service
 systemctl enable  ha-location-relay@ha.service
-systemctl enable  ha-serve-climate@ha.service
-systemctl enable  ha-store-climatebedroom@ha.service
-systemctl enable  ha-store-climatelivingroom@ha.service
+systemctl enable  ha-climate-serve@ha.service
+systemctl enable  ha-climate-store-bedroom@ha.service
+systemctl enable  ha-climate-store-livingroom@ha.service
 systemctl enable  ha-home-assistant@ha.service
 
 systemctl start  ha-met-eireann-fetch@ha.service
 systemctl start  ha-met-eireann-fetch@ha.timer
 systemctl start  ha-met-eireann-serve@ha.service
 systemctl start  ha-location-relay@ha.service
-systemctl start  ha-serve-climate@ha.service
-systemctl start  ha-store-climatebedroom@ha.service
-systemctl start  ha-store-climatelivingroom@ha.service
+systemctl start  ha-climate-serve@ha.service
+systemctl start  ha-climate-store-bedroom@ha.service
+systemctl start  ha-climate-store-livingroom@ha.service
 systemctl start  ha-home-assistant@ha.service
 
 systemctl status  ha-met-eireann-fetch@ha.service
 systemctl status  ha-met-eireann-fetch@ha.timer
 systemctl status  ha-met-eireann-serve@ha.service
 systemctl status  ha-location-relay@ha.service
-systemctl status  ha-serve-climate@ha.service
-systemctl status  ha-store-climatebedroom@ha.service
-systemctl status  ha-store-climatelivingroom@ha.service
+systemctl status  ha-climate-serve@ha.service
+systemctl status  ha-climate-store-bedroom@ha.service
+systemctl status  ha-climate-store-livingroom@ha.service
 systemctl status  ha-home-assistant@ha.service
