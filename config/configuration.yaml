@@ -23,7 +23,7 @@ frontend:
 config:
 
 logger:
-  default: info
+  default: error
 
 http:
   # Secrets are defined in the file secrets.yaml
@@ -71,7 +71,7 @@ sun:
 panel_iframe:
   climate:
     title: 'Climate'
-    url: 'http://localhost:5001/chart/last-month'
+    url: 'http://flatpi-lan:5001/chart/livingroom/last-3days'
 
 binary_sensor: !include binary_sensor.yaml
 camera: !include cameras.yaml
