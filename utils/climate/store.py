@@ -3,16 +3,10 @@
 import datetime
 import json
 import sqlite3
+import sys
 import time
 
 import paho.mqtt.client as mqtt
-
-
-CFG = {}
-CFG['host'] = 'localhost'
-CFG['port'] = 1883
-CFG['db_name'] = 'climatelivingroom.db'
-CFG['topic'] = 'climate/livingroom'
 
 
 def store_data(db_name, device_timestamp, humidity, temperature):
@@ -34,28 +28,47 @@ def store_data(db_name, device_timestamp, humidity, temperature):
     db.close()
 
 
-def on_connect(client, userdate, flags, rc):
-    client.subscribe(CFG['topic'])
+def on_connect(client, userdata, flags, rc):
+    '''subscribe to topic given by userdata dictionary'''
+
+    client.subscribe(userdata['topic'])
 
 
 def on_message(client, userdata, message):
+    '''parse msg and store in db'''
     msg = json.loads((message.payload).decode('utf-8'))
 
     ts = datetime.datetime.strptime(msg['tsp'], '%Y%m%d%H%M%S')
     temperature = msg['tmp']
     humidity = msg['hmd']
 
-    store_data(CFG['db_name'], ts, humidity, temperature)
+    store_data(userdata['db_name'], ts, humidity, temperature)
 
 
-def mqtt_sub(host, port):
-    client = mqtt.Client()
+def mqtt_sub(cfg):
+    '''create mqtt connection'''
+    client = mqtt.Client(userdata=cfg)
     client.on_connect = on_connect
     client.on_message = on_message
 
-    client.connect(host, port)
+    client.connect(cfg['host'], cfg['port'])
     client.loop_forever()
 
 
+def main(config_file):
+    try:
+        with open(config_file) as cfile:
+            cfg = json.load(cfile)
+
+        mqtt_sub(cfg)
+    except IOError:
+        print('failed to open: {}'.format(config_file))
+    except ValueError:
+        print('failed to parse: {}'.format(config_file))
+
+
 if __name__ == '__main__':
-    mqtt_sub(CFG['host'], CFG['port'])
+    if len(sys.argv) == 2:
+        main(sys.argv[1])
+    else:
+        print('usage: python {} <config.json>'.format(sys.argv[0]))
