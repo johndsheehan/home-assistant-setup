@@ -114,13 +114,13 @@ def plot_gen(data):
 
     trace1 = gob.Scatter(x=timestamps,
                          y=temperatures,
-                         mode='lines+markers',
+                         mode='lines',
                          name='temperature',
                          line=dict(color=('rgb(255, 0, 0)'), shape='spline'))
 
     trace2 = gob.Scatter(x=timestamps,
                          y=humidities,
-                         mode='lines+markers',
+                         mode='lines',
                          name='humidity',
                          line=dict(color=('rgb(0, 255, 0)'), shape='spline'),
                          yaxis='y2')
