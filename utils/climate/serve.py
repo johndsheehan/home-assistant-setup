@@ -14,6 +14,10 @@ from flask import Flask, jsonify, render_template
 APP = Flask(__name__)
 
 
+DB = {'bedroom': './climatebedroom.db',
+      'livingroom': './climatelivingroom.db'}
+
+
 RANGES = {'last-hour': relativedelta(hours=1),
           'last-3hours': relativedelta(hours=3),
           'last-6hours': relativedelta(hours=6),
@@ -39,30 +43,34 @@ def index():
     return render_template("climate.html")
 
 
-@APP.route('/data/<data_range>')
-def data_json(data_range):
-    '''return values in json for given range'''
+@APP.route('/data/<room>/<data_range>')
+def data_json(room, data_range):
+    '''return values in json for given room & range'''
 
-    return jsonify(fetch(data_range, -1))
+    db = DB.get(room, './climatelivingroom.db')
+    return jsonify(fetch(db, data_range, -1))
 
 
-@APP.route('/chart/<data_range>')
-def chart(data_range):
-    '''return chart for given range, default range otherwise'''
+@APP.route('/chart/<room>/<data_range>')
+def chart(room, data_range):
+    '''return chart for given room & range, default range otherwise'''
 
-    data = fetch(data_range)
+    db = DB.get(room, './climatelivingroom.db')
+
+    print(data_range)
+    data = fetch(db, data_range)
     plot_gen(data)
 
     return render_template("climate.html")
 
 
-def fetch(data_range=RANGE_DEFAULT, maximum=288):
+def fetch(db_name, data_range=RANGE_DEFAULT, maximum=288):
     '''return data for given range, default otherwise, up to maximum rows'''
 
     if data_range not in RANGES:
         data_range = RANGE_DEFAULT
 
-    conn = sqlite3.connect('./climatelivingroom.db')
+    conn = sqlite3.connect(db_name)
     cur = conn.cursor()
 
     stmt = query_stmt(data_range)
