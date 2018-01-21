@@ -12,6 +12,11 @@ import time
 def connect_ap(essid, psk):
     '''connect to wireless access point'''
     import network
+    import ubinascii
+
+    mac = ubinascii.hexlify(network.WLAN().config('mac'),':').decode()
+    print(mac)
+
     sta_if = network.WLAN(network.STA_IF)
     if not sta_if.isconnected():
         print('connecting to network...')
