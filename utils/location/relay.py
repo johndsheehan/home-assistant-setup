@@ -3,6 +3,8 @@
 import json
 import logging
 import sqlite3
+import os
+import ssl
 import sys
 import ibmiotf.application
 
@@ -41,13 +43,59 @@ def store_data(msg):
     return True
 
 
-def wiot_cb(msg):
+def on_connect(client, userdata, flags, rc):
+
+    topic = 'iot-2/type/+/id/+/evt/location/fmt/+'
+    client.subscribe(topic)
+
+
+def on_message(client, userdata, msg):
 
     try:
+        print(msg.payload)
         store_data(msg)
-        client_local.publish('owntracks/user/dev', msg.payload)
+        userdata['local'].publish('owntracks/user/dev', msg.payload)
     except:
-        print('watson iot callback failed')
+        print('relay callback failed')
+
+
+def on_subscribe(client, userdata, mid, qos):
+
+    print('subscribed')
+
+
+def connect_local(config, userdata=None):
+
+    client = mqtt.Client('location.local', userdata=userdata, clean_session=False)
+    client.connect(config['host'], config['port'], 60)
+
+    return client
+
+
+def connect_relay(config, userdata):
+
+    orgid = config['auth-key'].split('-')[1]
+
+    client_id = 'a' + ':' + orgid + ':' + config['id']
+    client = mqtt.Client(client_id, userdata=userdata, clean_session=False)
+
+    username = config['auth-key']
+    password = config['auth-token']
+    client.username_pw_set(username, password)
+
+    ca_file = "./messaging.pem"
+    client.tls_set(ca_certs=ca_file, cert_reqs=ssl.CERT_REQUIRED, tls_version=ssl.PROTOCOL_TLSv1_2)
+
+    address = orgid + '.messaging.internetofthings.ibmcloud.com' 
+
+    client.on_connect = on_connect
+    client.on_message = on_message
+    client.on_subscribe = on_subscribe
+
+    client.connect(address, 8883)
+    client.loop_start()
+
+    return client
 
 
 def main(config_file):
@@ -56,16 +104,12 @@ def main(config_file):
         cfg = json.load(f)
 
     cfg_local = cfg['local']
-    cfg_wiot = cfg['wiot']
+    cfg_relay = cfg['relay']
 
-    client_local = mqtt.Client()
-    client_local.connect(cfg_local['host'], cfg_local['port'], 60)
+    client_local = connect_local(cfg_local)
 
-    client_wiot = ibmiotf.application.Client(cfg_wiot)
-    client_wiot.connect()
-
-    client_wiot.deviceEventCallback = wiot_cb
-    client_wiot.subscribeToDeviceEvents(event=cfg_wiot['event'])
+    userdata = {"local": client_local, "relay": cfg_relay}
+    client_relay = connect_relay(cfg_relay, userdata=userdata)
 
     client_local.loop_forever()
 
