@@ -6,7 +6,7 @@ After=network.target
 Type=simple
 User=%i
 WorkingDirectory=/home/ha/home-assistant-setup/utils/location
-ExecStart=/usr/bin/python3 /home/ha/home-assistant-setup/utils/location/relay.py /home/ha/home-assistant-setup/utils/location/config.json
+ExecStart=/home/ha/local/bin/python3 /home/ha/home-assistant-setup/utils/location/relay.py /home/ha/home-assistant-setup/utils/location/config.json
 
 [Install]
 WantedBy=multi-user.target

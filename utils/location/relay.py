@@ -6,7 +6,6 @@ import sqlite3
 import os
 import ssl
 import sys
-import ibmiotf.application
 
 import paho.mqtt.client as mqtt
 
