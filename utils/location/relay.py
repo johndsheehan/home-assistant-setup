@@ -15,7 +15,8 @@ logging.basicConfig(level=logging.DEBUG, format='%(asctime)s [%(levelname)s] -> 
 
 def store_data(msg):
     try:
-        payload = json.loads(msg.payload)
+        str_payload = msg.payload.decode('utf-8')
+        payload = json.loads(str_payload)
 
         longitude = payload['lon']
         latitude = payload['lat']
@@ -37,6 +38,7 @@ def store_data(msg):
         db.commit()
         db.close()
     except:
+        print('failed')
         return False
 
     return True
