@@ -57,7 +57,6 @@ def chart(room, data_range):
 
     db = DB.get(room, './climatelivingroom.db')
 
-    print(data_range)
     data = fetch(db, data_range)
     plot_gen(data)
 
@@ -88,15 +87,11 @@ def fetch(db_name, data_range=RANGE_DEFAULT, maximum=288):
         return lst
 
     length = len(lst)
-    if length > 2 * maximum:
+    if length > maximum:
         '''if number of rows found is large, filter'''
-        step = int(length / maximum)
+        step = (length // maximum) + 1
         lst = lst[::-step]
         lst.reverse()
-    elif length > maximum:
-        '''return most recent values'''
-        offset = length - maximum
-        lst = lst[offset:]
 
     return lst
 
@@ -110,6 +105,7 @@ def query_stmt(data_range):
 
     select = 'select entered, humidity, temperature from SensorValues where '
     stmt = select + "entered between '{start}' and '{finish}'".format(start=start, finish=finish)
+
     return stmt
 
 
