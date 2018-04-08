@@ -2,6 +2,7 @@
 
 import os
 import sqlite3
+import uuid
 
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
@@ -38,9 +39,12 @@ def index():
     '''return chart with default range'''
 
     data = fetch()
-    plot_gen(data)
+    name = plot_gen(data)
 
-    return render_template("climate.html")
+    html = render_template(name)
+    os.remove('./templates/{}'.format(name))
+
+    return html
 
 
 @APP.route('/data/<room>/<data_range>')
@@ -58,9 +62,12 @@ def chart(room, data_range):
     db = DB.get(room, './climatelivingroom.db')
 
     data = fetch(db, data_range)
-    plot_gen(data)
+    name = plot_gen(data)
 
-    return render_template("climate.html")
+    html = render_template(name)
+    os.remove('./templates/{}'.format(name))
+
+    return html
 
 
 def fetch(db_name, data_range=RANGE_DEFAULT, maximum=288):
@@ -149,8 +156,11 @@ def plot_gen(data):
                         yaxis2=yaxis_humidity
                        )
 
+    filename = str(uuid.uuid4()) + '.html'
     fig = dict(data=data, layout=layout)
-    offline.plot(fig, filename='./templates/climate.html', auto_open=False)
+    offline.plot(fig, filename='./templates/{}'.format(filename), auto_open=False)
+
+    return filename
 
 
 if __name__ == '__main__':
